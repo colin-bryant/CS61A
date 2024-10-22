@@ -1,17 +1,15 @@
-from math import pow
 def digit(n, k):
     """Return the digit that is k from the right of n for positive integers n and k.
 
     >>> digit(3579, 2)
     5
     >>> digit(3579, 0)
-    8
+    9
     >>> digit(3579, 10)
     0
     """
-
     # pow 返回的是浮点数
-    return int(n // pow(10,k) % 10)
+    return n // (10 ** k) % 10
 
 
 def middle(a, b, c):
@@ -29,8 +27,8 @@ def middle(a, b, c):
     >>> middle(30, 5, 40)
     30
     """
+    return a+b+c - max(a,b,c)-min(a,b,c)
 
-    return a+b+c-max(a,b,c)-min(a,b,c)
 
 
 def falling(n, k):
@@ -46,21 +44,19 @@ def falling(n, k):
     1
     """
     "*** YOUR CODE HERE ***"
-    # 循环k次
-    if k> n :
-        return 1
-    result = 1
-    for i in range(k):
-        result*=n-i
-    return result
-
-    # n - k 决定了循环停止的位置，以确保只选择  k  个元素的乘积。
-    # total, stop = 1, n-k
-    # while n > stop:
-    #     total, n = total*n, n-1
-    # return total
+    # result,count=n,1
+    # if k==0:
+    #     return 1
+    # while count<k:
+    #     result =result * (n-1)
+    #     count,n= count+1,n-1
+    # return result
+    total,stop = 1,n-k
+    while n > stop:
 
 
+        total,n=total*n,n-1
+    return total
 
 def divisible_by_k(n, k):
     """
@@ -83,7 +79,22 @@ def divisible_by_k(n, k):
     0
     """
     "*** YOUR CODE HERE ***"
-
+    result,count = 0 ,0
+    if k > n:
+        return 0
+    while result< n:
+        result = result + k
+        print(result)
+        count=count + 1
+    return count
+    # count = 0
+    # i = 1
+    # while i <= n:
+    #     if i % k == 0:
+    #         print(i)
+    #         count += 1
+    #     i += 1
+    # return count
 
 def sum_digits(y):
     """Sum all the digits of y.
@@ -99,8 +110,10 @@ def sum_digits(y):
     6
     """
     "*** YOUR CODE HERE ***"
-
-
+    total = 0
+    while y > 0:
+        total, y = total + y % 10, y // 10
+    return total
 def double_eights(n):
     """Return true if n has two eights in a row.
     >>> double_eights(8)
@@ -117,3 +130,28 @@ def double_eights(n):
     False
     """
     "*** YOUR CODE HERE ***"
+    count =0
+    while n > 0:
+        if n % 100 ==88:
+            return True
+        n = n // 10
+    return False
+    # prev_eight = False
+    # while n > 0:
+    #     last_digit = n % 10
+    #     if last_digit == 8 and prev_eight:
+    #         return True
+    #     elif last_digit == 8:
+    #         prev_eight = True
+    #     else:
+    #         prev_eight = False
+    #     n = n // 10
+    # return False
+
+# Alternate solution
+# def double_eights_alt(n):
+#     while n:
+#         if n % 10 == 8 and n // 10 % 10 == 8:
+#             return True
+#         n //= 10
+#     return False
