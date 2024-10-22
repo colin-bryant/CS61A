@@ -68,6 +68,7 @@ def largest_factor(n):
     >>> largest_factor(13) # factor is 1 since 13 is prime
     1
     """
+    # 找到最大的因数
     factor = n - 1
     while factor > 0:
         if n % factor == 0:
